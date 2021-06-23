@@ -8,30 +8,31 @@ use Illuminate\Http\Request;
 
 class CSDTController extends Controller
 {
-    public function insert(string $CS_MASO, string $TEN_TINH, string $TEN_HUYEN, string $TEN_XA, string $CS_TEN, string $CS_SO_DUONG)
+    public function insert(Request $request)
     {
         $new_row = new QuanLyCSDT();
-        $new_row->CS_MASO = $CS_MASO;
-        $new_row->TEN_TINH = $TEN_TINH;
-        $new_row->TEN_HUYEN = $TEN_HUYEN;
-        $new_row->TEN_XA = $TEN_XA;
-        $new_row->CS_TEN = $CS_TEN;
-        $new_row->CS_SO_DUONG = $CS_SO_DUONG;
+        $new_row->CS_MASO = $request->CS_MASO;
+        $new_row->TEN_TINH = $request->TEN_TINH;
+        $new_row->TEN_HUYEN = $request->TEN_HUYEN;
+        $new_row->TEN_XA = $request->TEN_XA;
+        $new_row->CS_TEN = $request->CS_TEN;
+        $new_row->CS_SO_DUONG = $request->CS_SO_DUONG;
+
         $new_row->save();
     }
 
-    public function update(string $CS_MASO, string $TEN_TINH, string $TEN_HUYEN, string $TEN_XA, string $CS_TEN, string $CS_SO_DUONG)
+    public function update(Request $request)
     {
-        $edit_row = QuanLyCSDT::find($CS_MASO);
-        $edit_row->CS_TEN = $CS_TEN;
-        $edit_row->TEN_TINH = $TEN_TINH;
-        $edit_row->TEN_HUYEN = $TEN_HUYEN;
-        $edit_row->TEN_XA = $TEN_XA;
-        $edit_row->CS_SO_DUONG = $CS_SO_DUONG;
+        $edit_row = QuanLyCSDT::find($request->CS_MASO);
+        $edit_row->CS_TEN =  $request->CS_TEN;
+        $edit_row->TEN_TINH =  $request->TEN_TINH;
+        $edit_row->TEN_HUYEN =  $request->TEN_HUYEN;
+        $edit_row->TEN_XA =  $request->TEN_XA;
+        $edit_row->CS_SO_DUONG =  $request->CS_SO_DUONG;
         $edit_row->save();
     }
 
-    public function delete(string $CS_MASO)
+    public function delete($CS_MASO)
     {
         $del_row = QuanLyCSDT::find($CS_MASO);
         $del_row->delete();

@@ -29,5 +29,8 @@ Route::post('hocvien/edit', 'HocVienController@edit');
 Route::post('hocvien/add', 'HocVienController@add');
 //  });
 // end hoc vien
-// Load location
-Route::get('location', 'LocationController@load');
+
+// giao vien
+
+Route::get('danhsachgiaovien', 'GiaoVienController@getDanhSach');
+Route::get('themgiaovien', 'GiaoVienController@getThem');
