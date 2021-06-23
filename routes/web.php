@@ -28,35 +28,3 @@ Route::get('xoa/{id}','HocVienController@getXoa');
 Route::get('show/{id}', 'HocVienController@getById');
 //  });
 // end hoc vien
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// code tạm
-
-Route::get('themgiaovien',function(){
-    return view('Admin.QuanLyGiaoVien.Them');
-});
-
-Route::get('danhsachgiaovien',function(){
-    return view('Admin.QuanLyGiaoVien.DanhSach');
-});
-Route::get('giaodiengiaovien',function(){
-    return view('Admin.QuanLyGiaoVien.GiaoDien');
-});
-
-Route::get('tongquan',function(){
-    return view('Admin.TongQuan.DanhSach');
-});
