@@ -21,10 +21,13 @@ Route::get('/', function () {
 
 // code phần học viên nữa sẽ đưa vào nhóm học viên sau nha <3
 //Route::group(['prefix' => 'hocvien'], function () {
-Route::get('themhocvien','HocVienController@getThem');
-Route::post('themhocvien','HocVienController@postThem');
-Route::get('danhsachhocvien','HocVienController@getDanhSach');
-Route::get('xoa/{id}','HocVienController@getXoa');    
-Route::get('show/{id}', 'HocVienController@getById');
+Route::get('themhocvien', 'HocVienController@getThem');
+Route::get('danhsachhocvien', 'HocVienController@getDanhSach');
+Route::get('xoa/{id}', 'HocVienController@getXoa');
+Route::get('hocvien/{id}', 'HocVienController@show');
+Route::post('hocvien/edit', 'HocVienController@edit');
+Route::post('hocvien/add', 'HocVienController@add');
 //  });
 // end hoc vien
+// Load location
+Route::get('location', 'LocationController@load');

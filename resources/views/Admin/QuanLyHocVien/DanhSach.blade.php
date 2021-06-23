@@ -48,7 +48,7 @@
             <td>{{$hv->HV_NGAYSINH}}</td>
             <td>{{$hv->HV_SDT}}</td>
             <td>{{$hv->TEN_XA}}, {{$hv->TEN_HUYEN}}, {{$hv->TEN_TINH}}</td>
-            <td class="project-actions text-right">
+            <td class="project-actions text-center">
               <a class="btn btn-info btn-sm show" id="{{$hv -> HV_MASO}}" data-toggle="modal" data-target="#exampleModal">
                 <i class="fas fa-pencil-alt">
                 </i>
@@ -63,6 +63,11 @@
           @endforeach
       </table>
     </div>
+    <ul class=" alert text-danger">
+      @foreach ( $errors -> all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
     <!-- /.card-body -->
   </div>
   <!-- Thông tin học viên -->
@@ -75,57 +80,25 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <!-- <div class="container-fluid">
-            <div class="row mb-3">
-              <div class="col-md-4">Mã số học viên:</div>
-              <input class="col-md-8" type="text" name="id" id="id" disabled>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">Họ và tên:</div>
-              <input class="col-md-8" type="text" name="name" id="name" disabled>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">Ngày sinh:</div>
-              <input class="col-md-8" type="text" name="dob" id="dob" disabled> 
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">Giới tính:</div>
-              <input class="col-md-8" type="text" name="sex" id="sex" disabled>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-4">SĐT:</div>
-              <input class="col-md-8" type="text" name="phone" id="phone" disabled>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">Địa chỉ:</div>
-              <input class="col-md-8" type="text" name="address" id="address" disabled>
-            </div>
-
-          </div>  -->
-          <form action="themhocvien" method="POST" enctype="multipart/form-data">
+        <form class="js_form_hocvien" action="hocvien/edit" method="POST" enctype="multipart/form-data">
+          <div class="modal-body">
             <!-- sua loi 419 -->
             {{csrf_field()}}
             <div class="card-body">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Mã số học viên:</label>
-                <input type="text" class="form-control" name="maso" placeholder="" disabled>
-              </div>
-
+              <input type="hidden" class="form-control" id="maso" name="maso" placeholder="">
               <div class="form-group">
                 <label for="exampleInputEmail1">Họ tên học viên</label>
-                <input type="text" class="form-control" name="tenhv" placeholder="Tên học viên">
+                <input type="text" class="form-control" id="tenhv" name="tenhv" placeholder="Tên học viên">
               </div>
               <div class="form-row">
 
                 <div class="form-group col-md-6">
                   <label for="exampleInputEmail1">CMND/CCCD:</label>
-                  <input type="text" class="form-control" name="cmnd" placeholder="CMND/CCCD">
+                  <input type="text" class="form-control" id="cmnd" name="cmnd" placeholder="CMND/CCCD">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="exampleInputEmail1">Dân tộc:</label>
-                  <input type="text" class="form-control" name="cmnd" placeholder="Kinh">
+                  <input type="text" class="form-control" id="dantoc" name="dantoc" placeholder="Kinh">
                 </div>
               </div>
               <div class="form-row">
@@ -133,7 +106,7 @@
                 <div class="form-group col-md-6">
                   <label for="exampleInputEmail1">Trình độ học vấn:</label>
                   <div class="input-group">
-                    <select class="form-control" name="gioitinh">
+                    <select class="form-control" id="hocvan" name="hocvan">
                       <option>Trung học cơ sở</option>
                       <option>Trung học phổ thông</option>
                       <option>Cao đẳng</option>
@@ -144,7 +117,7 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="exampleInputEmail1">Nghề nghiệp:</label>
-                  <input type="text" class="form-control" name="nghenghiep" placeholder="Nghề nghiệp, nơi làm việc hiện tại">
+                  <input type="text" class="form-control" id="nghenghiep" name="nghenghiep" placeholder="Nghề nghiệp, nơi làm việc hiện tại">
                 </div>
               </div>
               <div class="form-row">
@@ -155,7 +128,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                    <input type="date" class="form-control" data-inputmask-alias="datetime" name="ngaysinh" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                    <input type="date" class="form-control" data-inputmask-alias="datetime" id="ngaysinh" name="ngaysinh" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                   </div>
                 </div>
 
@@ -163,7 +136,7 @@
 
                   <label for="exampleInputEmail1">Giới tính:</label>
                   <div class="input-group">
-                    <select class="form-control" name="gioitinh">
+                    <select class="form-control" id="gioitinh" name="gioitinh">
                       <option>Nam</option>
                       <option>Nữ</option>
                       <option>Khác</option>
@@ -178,7 +151,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-phone"></i></span>
                     </div>
-                    <input type="text" class="form-control" name="sodienthoai" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                    <input type="text" class="form-control" id="sodienthoai" name="sodienthoai" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                   </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -194,7 +167,8 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <span>Tỉnh/Thành Phố</span>
-                  <select class="form-control" id="tinh" name="tinh" placeholder="Tỉnh/Thành Phố">
+                  <select class="form-control js_nguyenquan_tinh" id="nguyenquan_tinh" name="nguyenquan_tinh" placeholder="Tỉnh/Thành Phố">
+                    <option>Mời chọn tỉnh/thành phố</option>
                     @foreach ($tinh_all as $tinh)
                     <option>{{ $tinh -> TEN_TINH }}</option>
                     @endforeach
@@ -202,7 +176,8 @@
                 </div>
                 <div class="form-group col-md-4">
                   <span>Quận/Huyện</span>
-                  <select class="form-control" id="huyen" name="huyen" placeholder="Quận/Huyên">
+                  <select class="form-control js_nguyenquan_huyen" id="nguyenquan_huyen" name="nguyenquan_huyen" placeholder="Quận/Huyên">
+                    <option>Mời chọn quận/huyện</option>
                     @foreach ($huyen_all as $huyen)
                     <option>{{ $huyen -> TEN_HUYEN }}</option>
                     @endforeach
@@ -210,7 +185,8 @@
                 </div>
                 <div class="form-group col-md-4">
                   <span>Phường/Xã</span>
-                  <select class="form-control" id="xa" name="xa" placeholder="Phường/Xã">
+                  <select class="form-control" id="nguyenquan_xa" name="nguyenquan_xa" placeholder="Phường/Xã">
+                    <option>Mời chọn phường/xã</option>
                     @foreach ($xa_all as $xa)
                     <option>{{ $xa -> TEN_XA }}</option>
                     @endforeach
@@ -221,7 +197,8 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <span>Tỉnh/Thành Phố</span>
-                  <select class="form-control" id="tinh" name="tinh" placeholder="Tỉnh/Thành Phố">
+                  <select class="form-control js_thuongtru_tinh" id="thuongtru_tinh" name="tinh" placeholder="Tỉnh/Thành Phố">
+                    <option>Mời chọn tỉnh/thành phố</option>
                     @foreach ($tinh_all as $tinh)
                     <option>{{ $tinh -> TEN_TINH }}</option>
                     @endforeach
@@ -229,18 +206,14 @@
                 </div>
                 <div class="form-group col-md-4">
                   <span>Quận/Huyện</span>
-                  <select class="form-control" id="huyen" name="huyen" placeholder="Quận/Huyên">
-                    @foreach ($huyen_all as $huyen)
-                    <option>{{ $huyen -> TEN_HUYEN }}</option>
-                    @endforeach
+                  <select class="form-control js_thuongtru_huyen" id="thuongtru_huyen" name="huyen" placeholder="Quận/Huyên">
+                    <option>Mời chọn quận/huyện</option>
                   </select>
                 </div>
                 <div class="form-group col-md-4">
                   <span>Phường/Xã</span>
-                  <select class="form-control" id="xa" name="xa" placeholder="Phường/Xã">
-                    @foreach ($xa_all as $xa)
-                    <option>{{ $xa -> TEN_XA }}</option>
-                    @endforeach
+                  <select class="form-control" id="thuongtru_xa" name="xa" placeholder="Phường/Xã">
+                    <option>Mời chọn phường/xã</option>
                   </select>
                 </div>
               </div>
@@ -252,12 +225,14 @@
                 <label for="exampleFormControlTextarea1">Lịch sử đào tạo:</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
               </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Đồng ý</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Đồng ý</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+
+        </form>
+
       </div>
     </div>
   </div>
