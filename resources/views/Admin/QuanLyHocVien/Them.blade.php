@@ -23,7 +23,7 @@
 
   <!-- them hoc vien moi -->
 
-<hr>
+  <hr>
   <form class="js_form_hocvien" action="hocvien/add" method="POST" enctype="multipart/form-data">
     <div class="modal-body">
       <!-- sua loi 419 -->
@@ -171,7 +171,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Đồng ý</button>
+        <button type="submit" class="btn btn-primary">Thêm</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
       </div>
 

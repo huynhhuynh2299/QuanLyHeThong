@@ -294,7 +294,7 @@
                 </div>
                 <div class="col-auto">
                   <button type="submit" class="btn btn-primary">Lưu</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
                 </div>
               </div>
           </form>
