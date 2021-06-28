@@ -2,30 +2,142 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cutruhv;
+use App\Models\doituong;
+use App\Models\hocvien;
+use App\Models\huyen;
+use App\Models\tinh;
+use App\Models\xa;
 use Illuminate\Http\Request;
-use App\Models\QuanLyHocVien;
-use App\Models\QuanLyDoiTuong;
-use App\Models\QuanLyHuyen;
-use App\Models\QuanLyTinh;
-use App\Models\QuanLyXa;
+
 use Illuminate\Support\Facades\Redirect;
 
 class HocVienController extends Controller
 {
+    // CÁC PHƯƠNG THỨC TRUY VẤN //
 
+    // truy vấn toàn bộ bảng
+    public function getAll()
+    {
+        return hocvien::all();
+    }
+
+    // truy vấn bằng id của bảng
+    public function getByID(int $id)
+    {
+        return hocvien::find($id);
+    }
+
+    // truy vấn theo giá trị một cột bất kỳ
+    public function getByCol(String $col, String $value)
+    {
+        return hocvien::all()->where($col, $value);
+    }
+
+    // truy vấn theo giá trị 2 cột bất kỳ
+    public function getBy2Col(
+        String $col1,
+        String $value1,
+        String $col2,
+        String $value2
+    ) {
+        return hocvien::all()
+            ->where($col1, $value1)
+            ->where($col2, $value2);
+    }
+    // truy vấn theo n cột bất kỳ dựa theo code mẫu ở trên tự edit theo từng trường hợp
+
+    //***************************************************************
+
+    // CÁC PHƯƠNG THỨC XỬ LÝ BẢNG //
+
+    // thao tác insert
+    public function insert(
+        String $HV_CMND,
+        String $HV_HOTEN,
+        String $HV_SDT,
+        String $HV_NGAYSINH,
+        String $HV_GIOITINH,
+        String $HV_TTVIECLAM,
+        String $HV_DANTOC,
+        String $HV_HOCVAN,
+        String $HV_CHUANDAURA,
+        String $HV_NOILAMVIECDUKIEN,
+        int $id_DOITUONG
+    ) {
+        $NEW_ROW = new hocvien();
+        $NEW_ROW->HV_CMND = $HV_CMND;
+        $NEW_ROW->HV_HOTEN = $HV_HOTEN;
+        $NEW_ROW->HV_SDT = $HV_SDT;
+        $NEW_ROW->HV_NGAYSINH = $HV_NGAYSINH;
+        $NEW_ROW->HV_GIOITINH = $HV_GIOITINH;
+        $NEW_ROW->HV_TTVIECLAM = $HV_TTVIECLAM;
+        $NEW_ROW->HV_DANTOC = $HV_DANTOC;
+        $NEW_ROW->HV_HOCVAN = $HV_HOCVAN;
+        $NEW_ROW->HV_CHUANDAURA = $HV_CHUANDAURA;
+        $NEW_ROW->HV_NOILAMVIECDUKIEN = $HV_NOILAMVIECDUKIEN;
+        $NEW_ROW->id_DOITUONG = $id_DOITUONG;
+        $NEW_ROW->save();
+    }
+
+    // thao tác update
+    public function update(
+        int $id,
+        String $HV_CMND,
+        String $HV_HOTEN,
+        String $HV_SDT,
+        String $HV_NGAYSINH,
+        String $HV_GIOITINH,
+        String $HV_TTVIECLAM,
+        String $HV_DANTOC,
+        String $HV_HOCVAN,
+        String $HV_CHUANDAURA,
+        String $HV_NOILAMVIECDUKIEN,
+        int $id_DOITUONG
+    ) {
+        $NEW_ROW = hocvien::find($id);
+        $NEW_ROW->HV_CMND = $HV_CMND;
+        $NEW_ROW->HV_HOTEN = $HV_HOTEN;
+        $NEW_ROW->HV_SDT = $HV_SDT;
+        $NEW_ROW->HV_NGAYSINH = $HV_NGAYSINH;
+        $NEW_ROW->HV_GIOITINH = $HV_GIOITINH;
+        $NEW_ROW->HV_TTVIECLAM = $HV_TTVIECLAM;
+        $NEW_ROW->HV_DANTOC = $HV_DANTOC;
+        $NEW_ROW->HV_HOCVAN = $HV_HOCVAN;
+        $NEW_ROW->HV_CHUANDAURA = $HV_CHUANDAURA;
+        $NEW_ROW->HV_NOILAMVIECDUKIEN = $HV_NOILAMVIECDUKIEN;
+        $NEW_ROW->id_DOITUONG = $id_DOITUONG;
+        $NEW_ROW->save();
+    }
+
+    // thao tác delete
+
+    /*
+    public function delete(int $id){
+        hocvien::find($id)->delete();
+    }
+    */
+
+    //***************************************************************
+
+    // CÁC TRIGGER 
+
+    //**************************************************************
     public function getDanhSach()
     {
-        $hocvien_all = QuanLyHocVien::all();
+        $hocvien_all = hocvien::all();
+        $cutruhv = new cutruhv();
 
-        $tinh_all = QuanLyTinh::all();
-        $huyen_all = QuanLyHuyen::all();
-        $xa_all = QuanLyXa::all();
+        $tinh_all = tinh::all();
+        $huyen_all = huyen::all();
+        $xa_all = xa::all();
 
-        $doituong_all = QuanLyDoiTuong::all();
+        $doituong_all = doituong::all();
 
         return view(
             'Admin.QuanLyHocVien.DanhSach',
             [
+                'cutruhv_all' => $cutruhv->getAll(),
                 'quanlyhocvien' => $hocvien_all,
                 'tinh_all' => $tinh_all,
                 'huyen_all' => $huyen_all,
@@ -37,13 +149,13 @@ class HocVienController extends Controller
 
     public function getThem()
     {
-        $hocvien_all = QuanLyHocVien::all();
+        $hocvien_all = hocvien::all();
 
-        $tinh_all = QuanLyTinh::all();
-        $huyen_all = QuanLyHuyen::all();
-        $xa_all = QuanLyXa::all();
+        $tinh_all = tinh::all();
+        $huyen_all = huyen::all();
+        $xa_all = xa::all();
 
-        $doituong_all = QuanLyDoiTuong::all();
+        $doituong_all = doituong::all();
 
         return view(
             'Admin.QuanLyHocVien.Them',
@@ -61,7 +173,7 @@ class HocVienController extends Controller
     public function postThem(Request $request)
     {
 
-        $hocvien = new QuanLyHocVien;
+        $hocvien = new hocvien();
 
         $hocvien->HV_MASO = $request->maso;
         $hocvien->HV_CMND = $request->cmnd;
@@ -79,17 +191,11 @@ class HocVienController extends Controller
 
     public function getXoa($id)
     {
-        $quanlyhocvien = QuanLyHocVien::find($id);
+        $quanlyhocvien = hocvien::find($id);
         $quanlyhocvien->delete();
         return view('Admin/QuanLyHocVien/DanhSach');
     }
 
-
-    public function show($id)
-    {
-        $getById = QuanLyHocVien::where('HV_MASO', $id)->get();
-        return response()->json($getById, 200);
-    }
 
     public function add(Request $request)
     {
@@ -135,7 +241,7 @@ class HocVienController extends Controller
         //     'HV_GIOITINH' => $request->gioitinh,
         // ]);
 
-        $hocvien = new QuanLyHocVien();
+        $hocvien = new hocvien();
         $hocvien->HV_MASO = $request->cmnd;
         $hocvien->HV_CMND = $request->cmnd;
         $hocvien->TEN_TINH  = $request->nguyenquan_tinh;
@@ -185,7 +291,7 @@ class HocVienController extends Controller
             'sodienthoai' => 'Số điện thoại',
         ]);
 
-        $hocvien = QuanLyHocVien::where('HV_MASO', $request->maso)->update([
+        $hocvien = hocvien::where('HV_MASO', $request->maso)->update([
             'HV_CMND' => $request->cmnd,
             'TEN_TINH' => $request->nguyenquan_tinh,
             'TEN_HUYEN' => $request->nguyenquan_huyen,

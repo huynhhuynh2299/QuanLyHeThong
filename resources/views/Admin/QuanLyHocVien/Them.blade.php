@@ -169,6 +169,64 @@
           <label for="exampleFormControlTextarea1">Lịch sử đào tạo:</label>
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
         </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Thông tin đào tạo:</label>
+        </div>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="exampleInputEmail1">Ngành nghề đào tạo:</label>
+            <div class="input-group">
+              <select class="form-control" id="nganhdaotao" name="nganhdaotao">
+                <option>.</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="exampleInputEmail1">Địa điểm đào tạo:</label>
+            <div class="input-group">
+              <select class="form-control" id="diadiem" name="diadiem">
+                <option>.</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="exampleInputEmail1">Thời gian khóa học(ngày):</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="thoigianhoc" name="thoigianhoc">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">Ngày bắt đầu:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+              </div>
+              <input type="date" class="form-control" data-inputmask-alias="datetime" id="ngaybatdau" name="ngaybatdau" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">Ngày kết thúc:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+              </div>
+              <input type="date" class="form-control" data-inputmask-alias="datetime" id="ngayketthuc" name="ngayketthuc" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Chuẩn đầu ra(kiến thức, kỹ năng, thái độ):</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Dự kiến nơi làm việc sau khóa học:</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="noilamviec" name="noilamviec">
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Thêm</button>

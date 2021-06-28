@@ -24,16 +24,15 @@
     <!-- sua loi 419 -->
     {{csrf_field()}}
     <div class="card-body">
-      <input type="hidden" class="form-control" id="maso" name="maso" placeholder="">
       <div class="form-group">
         <label for="exampleInputEmail1">Họ tên giáo viên</label>
-        <input type="text" class="form-control" id="tenhv" name="tenhv" placeholder="Tên giáo viên">
+        <input type="text" class="form-control" id="tenhv" name="gv_ten" placeholder="Tên giáo viên">
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="exampleInputEmail1">Trình độ học vấn:</label>
           <div class="input-group">
-            <select class="form-control" id="hocvan" name="hocvan">
+            <select class="form-control" id="hocvan" name="gv_trinhdo">
               <option>Trung học cơ sở</option>
               <option>Trung học phổ thông</option>
               <option>Cao đẳng</option>
@@ -48,12 +47,12 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-phone"></i></span>
             </div>
-            <input type="text" class="form-control" id="sodienthoai" name="sodienthoai" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+            <input type="text" class="form-control" id="sodienthoai" name="gv_sodienthoai" data-inputmask='"mask": "(999) 999-9999"' data-mask>
           </div>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <!-- <div class="form-group col-md-6">
           <label for="exampleInputEmail1">Ngày sinh:</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -61,23 +60,26 @@
             </div>
             <input type="date" class="form-control" data-inputmask-alias="datetime" id="ngaysinh" name="ngaysinh" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
           </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="exampleInputEmail1">Giới tính:</label>
-          <div class="input-group">
-            <select class="form-control" id="gioitinh" name="gioitinh">
-              <option>Nam</option>
-              <option>Nữ</option>
-              <option>Khác</option>
-            </select>
-          </div>
+        </div> -->
+        <div class="form-group col-md-6 ">
+          <label for="form-row">Giới tính:</label>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <input type="radio" name="gv_gioitinh" value="Nam" checked>
+          <span style="font-size: 20px;"> Nam </span>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <input type="radio" name="gv_gioitinh" value="Nữ" checked>
+          <span style="font-size: 20px;"> Nữ </span>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <input type="radio" name="gv_gioitinh" value="Khác" checked>
+          <span style="font-size: 20px;"> Khác </span>
+
         </div>
       </div>
       <label for="exampleInputEmail1">Địa chỉ:</label>
       <div class="form-row">
         <div class="form-group col-md-4">
           <span>Tỉnh/Thành Phố</span>
-          <select class="form-control js_nguyenquan_tinh" id="nguyenquan_tinh" name="nguyenquan_tinh" placeholder="Tỉnh/Thành Phố">
+          <select class="form-control js_nguyenquan_tinh" id="nguyenquan_tinh" name="gv_tinh" placeholder="Tỉnh/Thành Phố">
             <option>Mời chọn tỉnh/thành phố</option>
             @foreach ($tinh_all as $tinh)
             <option>{{ $tinh -> TEN_TINH }}</option>
@@ -86,7 +88,7 @@
         </div>
         <div class="form-group col-md-4">
           <span>Quận/Huyện</span>
-          <select class="form-control js_nguyenquan_huyen" id="nguyenquan_huyen" name="nguyenquan_huyen" placeholder="Quận/Huyên">
+          <select class="form-control js_nguyenquan_huyen" id="nguyenquan_huyen" name="gv_huyen" placeholder="Quận/Huyên">
             <option>Mời chọn quận/huyện</option>
             @foreach ($huyen_all as $huyen)
             <option>{{ $huyen -> TEN_HUYEN }}</option>
@@ -95,7 +97,7 @@
         </div>
         <div class="form-group col-md-4">
           <span>Phường/Xã</span>
-          <select class="form-control" id="nguyenquan_xa" name="nguyenquan_xa" placeholder="Phường/Xã">
+          <select class="form-control" id="nguyenquan_xa" name="gv_xa" placeholder="Phường/Xã">
             <option>Mời chọn phường/xã</option>
             @foreach ($xa_all as $xa)
             <option>{{ $xa -> TEN_XA }}</option>
@@ -104,16 +106,16 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <!-- <div class="form-group col-md-6">
           <label for="exampleInputEmail1">Username:</label>
           <div class="input-group">
             <input type="text" class="form-control" id="username" name="username">
           </div>
-        </div>
+        </div> -->
         <div class="form-group col-md-6">
           <label for="exampleInputEmail1">Password:</label>
           <div class="input-group">
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="gv_mk">
           </div>
         </div>
       </div>

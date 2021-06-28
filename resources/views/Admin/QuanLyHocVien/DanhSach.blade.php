@@ -41,25 +41,33 @@
         <tbody>
           @foreach($quanlyhocvien as $hv)
           <tr>
-            <td>{{$hv->HV_MASO}}</td>
+            <td>{{$hv->id}}</td>
             <td>{{$hv->HV_HOTEN}}</td>
             <td>{{$hv->HV_GIOITINH}}</td>
             <td>{{$hv->HV_NGAYSINH}}</td>
             <td>{{$hv->HV_SDT}}</td>
-            <td>{{$hv->TEN_XA}}, {{$hv->TEN_HUYEN}}, {{$hv->TEN_TINH}}</td>
+            <!-- Nơi cư trú -->
+            @foreach($cutruhv_all as $cutruhv)
+            @if(($hv->id == $cutruhv -> id_HOCVIEN) && ($cutruhv->THUONG_TRU == 'YES') )
+            <td>{{ $cutruhv->DIA_CHI }}</td>
+            @endif
+            @endforeach
             <td class="project-actions text-center">
-              <a class="btn btn-info btn-sm show" id="{{$hv -> HV_MASO}}" data-toggle="modal" data-target="#exampleModal">
+              <a class="btn btn-primary btn-sm show" id="{{$hv -> id}}" data-toggle="modal" data-target="#showHocVien">
+                <i class="fas fa-eye"></i>
+              </a>
+              <a class="btn btn-info btn-sm show" id="{{$hv -> id}}" data-toggle="modal" data-target="#editHocVien">
                 <i class="fas fa-pencil-alt">
                 </i>
               </a>
-
-              <a class="btn btn-danger btn-sm" href="xoa/{{$hv->id}}">
+              <a class="btn btn-danger btn-sm" href="xoa/{{$hv -> id}}">
                 <i class="fas fa-trash">
                 </i>
               </a>
             </td>
           </tr>
           @endforeach
+        </tbody>
       </table>
     </div>
     <div class="container-fluid">
@@ -71,11 +79,207 @@
       <!-- /.card-body -->
     </div>
     <!-- Thông tin học viên -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="showHocVien" tabindex="-1" aria-labelledby="showHocVienModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin học viên</h5>
+            <h5 class="modal-title" id="showHocVienModalLabel">Thông tin học viên</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form enctype="multipart/form-data">
+            <div class="modal-body">
+              <!-- sua loi 419 -->
+              {{csrf_field()}}
+              <div class="card-body">
+                <input type="hidden" class="form-control" id="id" name="id" placeholder="">
+                <div class="form-group">
+                  <label for="HV_HOTEN">Họ tên học viên</label>
+                  <input type="text" class="form-control" id="HV_HOTEN" name="HV_HOTEN" placeholder="Tên học viên" disabled>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="HV_CMND">CMND/CCCD:</label>
+                    <input type="text" class="form-control" id="HV_CMND" name="HV_CMND" placeholder="CMND/CCCD" disabled>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="HV_DANTOC">Dân tộc:</label>
+                    <input type="text" class="form-control" id="HV_DANTOC" name="HV_DANTOC" placeholder="Kinh" disabled>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="HV_HOCVAN">Trình độ học vấn:</label>
+                    <div class="input-group">
+                      <select class="form-control" id="HV_HOCVAN" name="HV_HOCVAN" disabled>
+                        <option>1/12</option>
+                        <option>2/12</option>
+                        <option>3/12</option>
+                        <option>4/12</option>
+                        <option>5/12</option>
+                        <option>6/12</option>
+                        <option>7/12</option>
+                        <option>8/12</option>
+                        <option>9/12</option>
+                        <option>10/12</option>
+                        <option>11/12</option>
+                        <option>12/12</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="HV_NGHENGHIEP">Nghề nghiệp:</label>
+                    <input type="text" class="form-control" id="HV_NGHENGHIEP" name="HV_NGHENGHIEP" placeholder="Nghề nghiệp, nơi làm việc hiện tại" disabled>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="HV_NGAYSINH">Ngày sinh:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                      </div>
+                      <input type="date" class="form-control" data-inputmask-alias="datetime" id="HV_NGAYSINH" name="HV_NGAYSINH" data-inputmask-inputformat="dd/mm/yyyy" data-mask disabled>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="HV_GIOITINH">Giới tính:</label>
+                    <div class="input-group">
+                      <select class="form-control" id="HV_GIOITINH" name="HV_GIOITINH" disabled>
+                        <option>Nam</option>
+                        <option>Nữ</option>
+                        <option>Khác</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="HV_SDT">Số điện thoại:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                      </div>
+                      <input type="text" class="form-control" id="HV_SDT" name="HV_SDT" data-inputmask='"mask": "(999) 999-9999"' data-mask disabled>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="id_DOITUONG">Mã đối tượng:</label>
+                    <select class="form-control" id="id_DOITUONG" name="id_DOITUONG" disabled>
+                      @foreach ($doituong_all as $doituong)
+                      <option value="{{ $doituong -> DT_MASO}}">{{ $doituong -> DT_TEN }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <label for="HV_NGUYENQUAN">Nguyên quán:</label>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <span>Tỉnh/Thành Phố</span>
+                    <select class="form-control js_nguyenquan_tinh" id="nguyenquan_tinh" name="nguyenquan_tinh" placeholder="Tỉnh/Thành Phố">
+                      <option>Mời chọn tỉnh/thành phố</option>
+                      @foreach ($tinh_all as $tinh)
+                      <option>{{ $tinh -> TEN_TINH }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <span>Quận/Huyện</span>
+                    <select class="form-control js_nguyenquan_huyen" id="nguyenquan_huyen" name="nguyenquan_huyen" placeholder="Quận/Huyên">
+                      <option>Mời chọn quận/huyện</option>
+                      @foreach ($huyen_all as $huyen)
+                      <option>{{ $huyen -> TEN_HUYEN }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <span>Phường/Xã</span>
+                    <select class="form-control" id="nguyenquan_xa" name="nguyenquan_xa" placeholder="Phường/Xã">
+                      <option>Mời chọn phường/xã</option>
+                      @foreach ($xa_all as $xa)
+                      <option>{{ $xa -> TEN_XA }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <label for="HV_THUONGTRU">Hộ khẩu thường trú</label>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <span>Tỉnh/Thành Phố</span>
+                    <select class="form-control js_thuongtru_tinh" id="thuongtru_tinh" name="tinh" placeholder="Tỉnh/Thành Phố">
+                      <option>Mời chọn tỉnh/thành phố</option>
+                      @foreach ($tinh_all as $tinh)
+                      <option>{{ $tinh -> TEN_TINH }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+
+                    <span>Quận/Huyện</span>
+                    <select class="form-control js_thuongtru_huyen" id="thuongtru_huyen" name="huyen" placeholder="Quận/Huyên">
+                      <option>Mời chọn quận/huyện</option>
+                      @foreach ($huyen_all as $huyen)
+                      <option>{{ $huyen -> TEN_HUYEN }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <span>Phường/Xã</span>
+                    <select class="form-control" id="thuongtru_xa" name="xa" placeholder="Phường/Xã">
+                      <option>Mời chọn phường/xã</option>
+                      <option>Mời chọn tỉnh/thành phố</option>
+                      @foreach ($tinh_all as $tinh)
+                      <option>{{ $tinh -> TEN_TINH }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="HV_THONGTINMOTA">Thông tin người thân:</label>
+                  <textarea class="form-control" id="HV_THONGTINMOTA" name="HV_THONGTINMOTA" rows="2"></textarea>
+                </div>
+                <hr>
+                <label for="">Chi tiết chứng chỉ</label>
+                <div class="form-row">
+                  <table id="" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Tên chứng chỉ</th>
+                        <th>Xếp loại</th>
+                        <th>Giới Tính</th>
+                        <th>Đã nhận</th>
+                        <th>Số hiệu</th>
+                        <th>Ngày cấp</th>
+                        <th>Ngày nhận</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <div class="col-auto">
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">In</button>
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary">Lưu</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- Chỉnh sửa thông tin học viên -->
+    <div class="modal fade" id="editHocVien" tabindex="-1" aria-labelledby="editHocVienModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editHocVienModalLabel">Chỉnh sửa thông tin học viên</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

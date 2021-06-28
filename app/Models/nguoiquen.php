@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-     class QuanLyHocVien extends Model
+class nguoiquen extends Model
 {
-    protected $table = "hocvien";
+    use HasFactory;
+    protected $table = "nguoiquen";
     public $timestamps = false;
-
 }

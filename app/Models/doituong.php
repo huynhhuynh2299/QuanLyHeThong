@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QuanLyVBL extends Model
+class doituong extends Model
 {
     use HasFactory;
-    public $timestamps = false; // turn off laravel create update_at and create_at
-    protected $table = "vanbanluat";
+    protected $table = "doituong";
+    public $timestamps = false;
 }

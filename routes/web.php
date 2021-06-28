@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DSCCController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +25,7 @@ Route::get('/', function () {
 Route::get('themhocvien', 'HocVienController@getThem');
 Route::get('danhsachhocvien', 'HocVienController@getDanhSach');
 Route::get('xoa/{id}', 'HocVienController@getXoa');
-Route::get('hocvien/{id}', 'HocVienController@show');
+Route::get('hocvien/{id}', 'HocVienController@getByID');
 Route::post('hocvien/edit', 'HocVienController@edit');
 Route::post('hocvien/add', 'HocVienController@add');
 //  });
@@ -34,3 +35,8 @@ Route::post('hocvien/add', 'HocVienController@add');
 
 Route::get('danhsachgiaovien', 'GiaoVienController@getDanhSach');
 Route::get('themgiaovien', 'GiaoVienController@getThem');
+Route::post('giaovien/add', 'GiaoVienController@postThem');
+
+// DSCC
+
+Route::get('danhsachcc', 'DSCCController@getDanhSach');

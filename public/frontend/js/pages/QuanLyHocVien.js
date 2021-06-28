@@ -3,29 +3,27 @@ $(document).ready(function () {
         const id = $(this).attr("id");
 
         $.get("hocvien/" + id, function (data) {
-            const data_HocVien = data[0];
+            const data_HocVien = data;
 
             // Gán data vào modal qua id
-            $("#maso").val(data_HocVien["HV_MASO"]);
-            $("#tenhv").val(data_HocVien["HV_HOTEN"]);
-            $("#cmnd").val(data_HocVien["HV_CMND"]);
-            $("#dantoc").val("");
-            $("#hocvan").val("");
-            $("#nghenghiep").val("");
-            $("#ngaysinh").val(data_HocVien["HV_NGAYSINH"]);
+            $("#id").val(data_HocVien["HV_MASO"]);
+            $("#HV_HOTEN").val(data_HocVien["HV_HOTEN"]);
+            $("#HV_CMND").val(data_HocVien["HV_CMND"]);
+            $("#HV_DANTOC").val(data_HocVien["HV_DANTOC"]);
+            $("#HV_HOCVAN").val(data_HocVien["HV_HOCVAN"]);
+            $("#HV_NGHENGHIEP").val("");
+            $("#HV_NGAYSINH").val(data_HocVien["HV_NGAYSINH"]);
             // xử lý selected
-            $("#gioitinh option").each(function () {
+            $("#HV_GIOITINH option").each(function () {
                 if ($(this).val() == data_HocVien["HV_GIOITINH"]) {
                     $(this).prop("selected", true);
                 }
             });
 
-            $("#sodienthoai").val(data_HocVien["HV_SDT"]);
+            $("#HV_SDT").val(data_HocVien["HV_SDT"]);
 
-            $("#madoituong").val("");
-
-            $("#madoituong option").each(function () {
-                if ($(this).val() == data_HocVien["DT_MASO"]) {
+            $("#id_DOITUONG option").each(function () {
+                if ($(this).val() == data_HocVien["id_DOITUONG"]) {
                     $(this).prop("selected", true);
                 }
             });
@@ -51,7 +49,7 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $(".js_form_hocvien").submit(function (e) {
+    $(".js_form_hocnvhfvien").submit(function (e) {
         console.log("asdjfh");
         // e.preventDefault();
     });
@@ -59,47 +57,43 @@ $(document).ready(function () {
     // Location
     // Nguyên quán
 
-    // $(".js_nguyenquan_tinh").change(function (e) {
-    //     const tinh = $(this).val();
-    //     $('#nguyenquan_huyen').removeAttr('disabled');
-    //     $('#nguyenquan_xa').removeAttr('disabled');
+    $(".js_nguyenquan_tinh").change(function (e) {
+        const tinh = $(this).val();
+        $("#nguyenquan_huyen").removeAttr("disabled");
+        $("#nguyenquan_xa").removeAttr("disabled");
 
-    //     $.get("location", { tinh: tinh },
-    //         function (data) {
-    //             let html_huyen = '<option> Mời chọn quận/huyện </option>';
-    //             let html_xa = '<option>Mời chọn phường/xã</option>';
-    //             let element_huyen = '#nguyenquan_huyen';
-    //             let element_xa = '#nguyenquan_xa';
+        $.get("location", { tinh: tinh }, function (data) {
+            let html_huyen = "<option> Mời chọn quận/huyện </option>";
+            let html_xa = "<option>Mời chọn phường/xã</option>";
+            let element_huyen = "#nguyenq uan_huyen";
+            let element_xa = "#nguyenquan_xa";
 
-    //             $.each(data, function (index, value) {
-    //                 html_huyen += "<option>" + value.TEN_HUYEN + "</option>"
-    //             });
+            $.each(data, function (index, value) {
+                html_huyen += "<option>" + value.TEN_HUYEN + "</option>";
+            });
 
-    //             $(element_huyen).html('').append(html_huyen);
-    //             $(element_xa).html('').append(html_xa)
-    //         }
-    //     );
-    //     e.preventDefault();
-    // });
+            $(element_huyen).html("").append(html_huyen);
+            $(element_xa).html("").append(html_xa);
+        });
+        e.preventDefault();
+    });
 
-    // $(".js_nguyenquan_huyen").change(function (e) {
-    //     const tinh = $(".js_nguyenquan_tinh").val();
-    //     const huyen = $(this).val();
+    $(".js_nguyenquan_huyen").change(function (e) {
+        const tinh = $(".js_nguyenquan_tinh").val();
+        const huyen = $(this).val();
 
-    //     $.get("location", { tinh: tinh, huyen: huyen },
-    //         function (data) {
-    //             let html = '<option>Mời chọn phường/xã</option>';
-    //             let element = '#nguyenquan_xa';
+        $.get("location", { tinh: tinh, huyen: huyen }, function (data) {
+            let html = "<option>Mời chọn phường/xã</option>";
+            let element = "#nguyenquan_xa";
 
-    //             $.each(data, function (index, value) {
-    //                 html += "<option>" + value.TEN_XA + "</option>"
-    //             });
+            $.each(data, function (index, value) {
+                html += "<option>" + value.TEN_XA + "</option>";
+            });
 
-    //             $(element).html('').append(html);
-    //         }
-    //     );
-    //     e.preventDefault();
-    // });
+            $(element).html("").append(html);
+        });
+        e.preventDefault();
+    });
 
     // Thường trú
 
