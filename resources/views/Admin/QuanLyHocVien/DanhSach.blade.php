@@ -202,13 +202,13 @@
                 </div>
                 <div class="form-group">
                   <span>Địa chỉ</span>
-                  <input type="text" class="form-control" id="HV_DIACHI" name="HV_DIACHI" placeholder="Địa chỉ" disabled>
+                  <input type="text" class="form-control" id="HV_DIACHI_NQ" name="HV_DIACHI_NQ" placeholder="Địa chỉ" disabled>
                 </div>
                 <label for="HV_THUONGTRU">Hộ khẩu thường trú</label>
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <span>Tỉnh/Thành Phố</span>
-                    <select class="form-control js_thuongtru_tinh" id="thuongtru_tinh" name="tinh" placeholder="Tỉnh/Thành Phố">
+                    <select class="form-control js_thuongtru_tinh" id="thuongtru_tinh" name="tinh" placeholder="Tỉnh/Thành Phố"disabled>
                       <option>Mời chọn tỉnh/thành phố</option>
                       @foreach ($tinh_all as $tinh)
                       <option>{{ $tinh -> TEN_TINH }}</option>
@@ -216,9 +216,8 @@
                     </select>
                   </div>
                   <div class="form-group col-md-4">
-
                     <span>Quận/Huyện</span>
-                    <select class="form-control js_thuongtru_huyen" id="thuongtru_huyen" name="huyen" placeholder="Quận/Huyên">
+                    <select class="form-control js_thuongtru_huyen" id="thuongtru_huyen" name="huyen" placeholder="Quận/Huyên"disabled>
                       <option>Mời chọn quận/huyện</option>
                       @foreach ($huyen_all as $huyen)
                       <option>{{ $huyen -> TEN_HUYEN }}</option>
@@ -227,14 +226,18 @@
                   </div>
                   <div class="form-group col-md-4">
                     <span>Phường/Xã</span>
-                    <select class="form-control" id="thuongtru_xa" name="xa" placeholder="Phường/Xã">
+                    <select class="form-control" id="thuongtru_xa" name="xa" placeholder="Phường/Xã"disabled>
                       <option>Mời chọn phường/xã</option>
                       <option>Mời chọn tỉnh/thành phố</option>
-                      @foreach ($tinh_all as $tinh)
-                      <option>{{ $tinh -> TEN_TINH }}</option>
+                      @foreach ($xa_all as $xa)
+                      <option>{{ $xa -> TEN_XA }}</option>
                       @endforeach
                     </select>
                   </div>
+                </div>
+                <div class="form-group">
+                  <span>Địa chỉ</span>
+                  <input type="text" class="form-control" id="HV_DIACHI_TR" name="HV_DIACHI_TR" placeholder="Địa chỉ" disabled>
                 </div>
                 <div class="form-group">
                   <label for="HV_THONGTINMOTA">Thông tin người thân:</label>
@@ -248,14 +251,12 @@
                       <tr>
                         <th>Tên chứng chỉ</th>
                         <th>Xếp loại</th>
-                        <th>Giới Tính</th>
-                        <th>Đã nhận</th>
                         <th>Số hiệu</th>
                         <th>Ngày cấp</th>
                         <th>Ngày nhận</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="ds_chunngchi" >
                     </tbody>
                   </table>
                 </div>

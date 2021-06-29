@@ -25,6 +25,7 @@ class HocVienController extends Controller
     // truy vấn bằng id của bảng
     public function getByID(int $id)
     {
+        // Thông tin học viên
         $hocvien = hocvien::find($id);
         $cutru = hocvien::find($id)->lay_cutruhv;
         foreach ($cutru as $key) :
@@ -53,10 +54,13 @@ class HocVienController extends Controller
             }
         endforeach;
 
+        // Thông tin chứng chỉ
+        $chungchi = hocvien::find($id)->lay_dscc;
         $response = $hocvien;
 
         $response->THUONG_TRU = $dcThuongTru;
         $response->NGUYEN_QUAN = $dcNguyenQuan;
+        $response->DS_CHUNGCHI = $chungchi;
 
         return $response;
     }

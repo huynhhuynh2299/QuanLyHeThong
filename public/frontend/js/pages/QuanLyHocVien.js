@@ -4,14 +4,9 @@ $(document).ready(function () {
 
         $.get("hocvien/" + id, function (data) {
             const data_HocVien = data;
-            const data_CuTruHV = data["cutru"]; // Địa chỉ cư trú
-
-            const data_thuongtru = data_CuTruHV[0]; // Địa chỉ thuong trú
-            const data_nguyenquan = data_CuTruHV[1]; // Địa chỉ nguyen quán
-
-            const data_Tinh = data["tinh"]; // Địa chỉ cư trú
-            const data_Huyen = data["huyen"]; // Địa chỉ cư trú
-            const data_Xa = data["xa"]; // Địa chỉ cư trú
+            const dc_ThuongTru = data['THUONG_TRU'];
+            const dc_NguyenQuan = data['NGUYEN_QUAN'];
+            const data_DSChungChi = data['DS_CHUNGCHI'];
 
             // Gán data vào modal qua id
             $("#id").val(data_HocVien["HV_MASO"]);
@@ -19,7 +14,6 @@ $(document).ready(function () {
             $("#HV_CMND").val(data_HocVien["HV_CMND"]);
             $("#HV_DANTOC").val(data_HocVien["HV_DANTOC"]);
             $("#HV_HOCVAN").val(data_HocVien["HV_HOCVAN"]);
-            $("#HV_DIACHI").val(data_nguyenquan["DIA_CHI"]);
             $("#HV_NGHENGHIEP").val("");
             $("#HV_NGAYSINH").val(data_HocVien["HV_NGAYSINH"]);
             // xử lý selected
@@ -36,25 +30,81 @@ $(document).ready(function () {
                     $(this).prop("selected", true);
                 }
             });
+            // Nguyên quán
+
+            $("#HV_DIACHI_NQ").val(dc_NguyenQuan["DIA_CHI"]);
+
 
             $("#nguyenquan_tinh option").each(function () {
-                if ($(this).val() == data_Tinh["TEN_TINH"]) {
-                    console.log(data_Tinh["TEN_TINH"]);
+                if ($(this).val() == dc_NguyenQuan["TINH"]) {
                     $(this).prop("selected", true);
                 }
             });
 
             $("#nguyenquan_huyen option").each(function () {
-                if ($(this).val() == data_Huyen["TEN_HUYEN"]) {
+                if ($(this).val() == dc_NguyenQuan["HUYEN"]) {
                     $(this).prop("selected", true);
                 }
             });
 
             $("#nguyenquan_xa option").each(function () {
-                if ($(this).val() == data_Xa["TEN_XA"]) {
+                if ($(this).val() == dc_NguyenQuan["XA"]) {
                     $(this).prop("selected", true);
                 }
             });
+
+              // Thường trú
+
+              $("#HV_DIACHI_TR").val(dc_ThuongTru["DIA_CHI"]);
+
+
+              $("#thuongtru_tinh option").each(function () {
+
+                  if ($(this).val() == dc_ThuongTru["TINH"]) {
+                      $(this).prop("selected", true);
+                  }
+              });
+  
+              $("#thuongtru_huyen option").each(function () {
+                  if ($(this).val() == dc_ThuongTru["HUYEN"]) {
+                      $(this).prop("selected", true);
+                  }
+              });
+  
+              $("#thuongtru_xa option").each(function () {
+                  if ($(this).val() == dc_ThuongTru["XA"]) {
+                      $(this).prop("selected", true);
+                  }
+              });
+
+            //   Danh sách chứng chỉ
+
+            let html_ItemDSChungChi = ""
+
+            $.each(data_DSChungChi, function (index, value) {
+                if(value.CC_DANHAN == "YES") {
+                    html_ItemDSChungChi += 
+                    "<tr>"
+                     +"<td>"+ value.CC_TEN +"</td>"
+                     +"<td>"+ value.CC_XEPLOAI +"</td>"
+                     +"<td>"+ value.CC_SOHIEU +"</td>"
+                     +"<td>"+ value.CC_NGAYCAP +"</td>"
+                     +"<td>"+ value.CC_NGAYNHAN +"</td>"
+                    +"</tr>";
+                } else {
+                    html_ItemDSChungChi += 
+                    "<tr>"
+                     +"<td>"+ value.CC_TEN +"</td>"
+                     +"<td>"+ value.CC_XEPLOAI +"</td>"
+                     +"<td>"+ value.CC_SOHIEU +"</td>"
+                     +"<td>"+ value.CC_NGAYCAP +"</td>"
+                     +"<td>  Chưa nhận  </td>"
+                    +"</tr>";
+                }
+               
+            });
+            $('#ds_chunngchi').html("").append(html_ItemDSChungChi);
+
         });
         e.preventDefault();
     });
