@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuanLyHuyen;
-use App\Models\QuanLyXa;
+use App\Models\huyen;
+use App\Models\tinh;
+use App\Models\xa;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
     public function load(Request $request)
-    {
-        // $getById = ::where('HV_MASO', $id)->get();
-        if ($request->tinh && $request->huyen) {
-            $tinh = $request->tinh;
-            $huyen = $request->huyen;
-            $xa = QuanLyXa::where('TEN_TINH', $tinh)->where('TEN_HUYEN', $huyen)->get();
+    {       
+         // Xã
+        if ($request->id_HUYEN) {
+            $id_HUYEN = $request->id_HUYEN;
+            $xa = huyen::find($id_HUYEN)->lay_xa;
 
-            return response()->json($xa, 200);
+            return $xa;
         }
 
-        if ($request->tinh) {
-            $tinh = $request->tinh;
-            $huyen = QuanLyHuyen::where('TEN_TINH', $tinh)->get();
+        // Huyện
+        if ($request->id_TINH) {
+            $id_TINH = $request->id_TINH;
+            $huyen = tinh::find($id_TINH)->lay_huyen;
 
-            return response()->json($huyen, 200);
+            return $huyen;
         }
     }
 }

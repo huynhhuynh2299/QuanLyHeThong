@@ -40,6 +40,10 @@ class HocVienController extends Controller
                 $dcThuongTru->XA = $xa_tr->TEN_XA;
                 $dcThuongTru->HUYEN = $huyen_tr->TEN_HUYEN;
                 $dcThuongTru->TINH = $tinh_tr->TEN_TINH;
+
+                $dcThuongTru->id_XA = $xa_tr->id;
+                $dcThuongTru->id_HUYEN = $huyen_tr->id;
+                $dcThuongTru->id_TINH = $tinh_tr->id;
             }
             if ($key->THUONG_TRU == "NO") {
                 $dcNguyenQuan = $key;
@@ -51,6 +55,10 @@ class HocVienController extends Controller
                 $dcNguyenQuan->XA = $xa_nq->TEN_XA;
                 $dcNguyenQuan->HUYEN = $huyen_nq->TEN_HUYEN;
                 $dcNguyenQuan->TINH = $tinh_nq->TEN_TINH;
+
+                $dcNguyenQuan->id_XA = $xa_nq->id;
+                $dcNguyenQuan->id_HUYEN = $huyen_nq->id;
+                $dcNguyenQuan->id_TINH = $tinh_nq->id;
             }
         endforeach;
 
@@ -65,87 +73,16 @@ class HocVienController extends Controller
         return $response;
     }
 
-    // truy vấn theo giá trị một cột bất kỳ
-    public function getByCol(String $col, String $value)
-    {
-        return hocvien::all()->where($col, $value);
-    }
-
-    // truy vấn theo giá trị 2 cột bất kỳ
-    public function getBy2Col(
-        String $col1,
-        String $value1,
-        String $col2,
-        String $value2
-    ) {
-        return hocvien::all()
-            ->where($col1, $value1)
-            ->where($col2, $value2);
-    }
-    // truy vấn theo n cột bất kỳ dựa theo code mẫu ở trên tự edit theo từng trường hợp
+  
 
     //***************************************************************
 
     // CÁC PHƯƠNG THỨC XỬ LÝ BẢNG //
 
     // thao tác insert
-    public function insert(
-        String $HV_CMND,
-        String $HV_HOTEN,
-        String $HV_SDT,
-        String $HV_NGAYSINH,
-        String $HV_GIOITINH,
-        String $HV_TTVIECLAM,
-        String $HV_DANTOC,
-        String $HV_HOCVAN,
-        String $HV_CHUANDAURA,
-        String $HV_NOILAMVIECDUKIEN,
-        int $id_DOITUONG
-    ) {
-        $NEW_ROW = new hocvien();
-        $NEW_ROW->HV_CMND = $HV_CMND;
-        $NEW_ROW->HV_HOTEN = $HV_HOTEN;
-        $NEW_ROW->HV_SDT = $HV_SDT;
-        $NEW_ROW->HV_NGAYSINH = $HV_NGAYSINH;
-        $NEW_ROW->HV_GIOITINH = $HV_GIOITINH;
-        $NEW_ROW->HV_TTVIECLAM = $HV_TTVIECLAM;
-        $NEW_ROW->HV_DANTOC = $HV_DANTOC;
-        $NEW_ROW->HV_HOCVAN = $HV_HOCVAN;
-        $NEW_ROW->HV_CHUANDAURA = $HV_CHUANDAURA;
-        $NEW_ROW->HV_NOILAMVIECDUKIEN = $HV_NOILAMVIECDUKIEN;
-        $NEW_ROW->id_DOITUONG = $id_DOITUONG;
-        $NEW_ROW->save();
-    }
 
-    // thao tác update
-    public function update(
-        int $id,
-        String $HV_CMND,
-        String $HV_HOTEN,
-        String $HV_SDT,
-        String $HV_NGAYSINH,
-        String $HV_GIOITINH,
-        String $HV_TTVIECLAM,
-        String $HV_DANTOC,
-        String $HV_HOCVAN,
-        String $HV_CHUANDAURA,
-        String $HV_NOILAMVIECDUKIEN,
-        int $id_DOITUONG
-    ) {
-        $NEW_ROW = hocvien::find($id);
-        $NEW_ROW->HV_CMND = $HV_CMND;
-        $NEW_ROW->HV_HOTEN = $HV_HOTEN;
-        $NEW_ROW->HV_SDT = $HV_SDT;
-        $NEW_ROW->HV_NGAYSINH = $HV_NGAYSINH;
-        $NEW_ROW->HV_GIOITINH = $HV_GIOITINH;
-        $NEW_ROW->HV_TTVIECLAM = $HV_TTVIECLAM;
-        $NEW_ROW->HV_DANTOC = $HV_DANTOC;
-        $NEW_ROW->HV_HOCVAN = $HV_HOCVAN;
-        $NEW_ROW->HV_CHUANDAURA = $HV_CHUANDAURA;
-        $NEW_ROW->HV_NOILAMVIECDUKIEN = $HV_NOILAMVIECDUKIEN;
-        $NEW_ROW->id_DOITUONG = $id_DOITUONG;
-        $NEW_ROW->save();
-    }
+
+
 
     // thao tác delete
 
@@ -299,47 +236,86 @@ class HocVienController extends Controller
     public function edit(Request $request)
     {
         // validation
-
         $request->validate([
-            'maso' => 'required',
-            'madoituong' => 'required',
+            'id' => 'required',
+            // 'id_DOITUONG' => 'required',
 
-            'nguyenquan_tinh' => 'required',
-            'nguyenquan_huyen' => 'required',
-            'nguyenquan_xa' => 'required',
+            'HV_HOTEN' => 'required|max:50',
+            'HV_CMND' => 'required',
+            'HV_DANTOC' => 'required',
+            'HV_HOCVAN' => 'required',
 
-            'ngaysinh' => 'required',
-            'tenhv' => 'required|max:50',
-            'cmnd' => 'required',
-            'gioitinh' => 'required',
-            'sodienthoai' => 'required|numeric',
+            'HV_NGAYSINH' => 'required',
+            'HV_GIOITINH' => 'required',
+            'HV_SDT' => 'required|numeric',
+
+            'NGUYENQUAN_TINH' => 'required',
+            'NGUYENQUAN_HUYEN' => 'required',
+            'NGUYENQUAN_XA' => 'required',
+            'HV_DIACHI_NQ' => 'required',
+
+            'THUONGTRU_TINH' => 'required',
+            'THUONGTRU_HUYEN' => 'required',
+            'THUONGTRU_XA' => 'required',
+            'HV_DIACHI_TT' => 'required',
+
+
         ], [
             'required' => ':attribute không được để trống',
             'max' => ':attribute không được quá :max kí tự',
             'numeric' => ':attribute phải nhập chỉ số',
-            'unique' => ':attribute đã tồn tại ',
         ], [
-            'tenhv' => 'Họ tên học viên',
-            'cmnd' => 'CMDN/CCCD',
-            'nguyenquan_tinh' => 'Tỉnh/Thành phố',
-            'nguyenquan_huyen' => 'Quận/Huyện',
-            'nguyenquan_xa' => 'Phường/Xã',
-            'ngaysinh' => 'Ngày sinh',
-            'gioitinh' => 'Giới tính',
-            'sodienthoai' => 'Số điện thoại',
+            // 'id_DOITUONG' => 'Đối tượng',
+
+            'HV_HOTEN' => 'Họ tên học viên',
+            'HV_CMND' => 'CMDN/CCCD',
+            'HV_DANTOC' => 'Dân tộc',
+            'HV_HOCVAN' => 'Học vấn',
+
+            'HV_NGAYSINH' => 'Ngày sinh',
+            'HV_GIOITINH' => 'Giới tính',
+            'HV_SDT' => 'Số điện thoại',
+
+            'NGUYENQUAN_TINH' => 'Tỉnh/Thành phố',
+            'NGUYENQUAN_HUYEN' => 'Quận/Huyện',
+            'NGUYENQUAN_XA' => 'Phường/Xã',
+            'HV_DIACHI_NQ' => 'Địa chỉ nguyên quán',
+
+            'THUONGTRU_TINH' => 'Tỉnh/Thành phố',
+            'THUONGTRU_HUYEN' => 'Quận/Huyện',
+            'THUONGTRU_XA' => 'Phường/Xã',
+            'HV_DIACHI_TT' => 'Địa chỉ nguyên quán',
         ]);
 
-        $hocvien = hocvien::where('HV_MASO', $request->maso)->update([
-            'HV_CMND' => $request->cmnd,
-            'TEN_TINH' => $request->nguyenquan_tinh,
-            'TEN_HUYEN' => $request->nguyenquan_huyen,
-            'TEN_XA' => $request->nguyenquan_xa,
-            'DT_MASO' => $request->madoituong,
-            'HV_HOTEN' => $request->tenhv,
-            'HV_SDT' => $request->sodienthoai,
-            'HV_NGAYSINH' => $request->ngaysinh,
-            'HV_GIOITINH' => $request->gioitinh,
+
+        $hocvien = hocvien::where('id',$request->id)->update([
+            'id_DOITUONG' => $request->id_DOITUONG,
+
+            'HV_HOTEN' => $request->HV_HOTEN,
+            'HV_CMND' => $request->HV_CMND,
+            'HV_DANTOC' => $request->HV_DANTOC,
+            'HV_HOCVAN' => $request->HV_HOCVAN,
+            
+            'HV_NGAYSINH' => $request->HV_NGAYSINH,
+            'HV_GIOITINH' => $request->HV_GIOITINH,
+            'HV_SDT' => $request->HV_SDT,
         ]);
+
+        $cutruhv_nguyenquan = cutruhv::where('id',$request->id_HV_DIACHI_NQ)->update([
+            'DIA_CHI' => $request->HV_DIACHI_NQ,
+            'id_XA' => $request->NGUYENQUAN_XA,
+        ]);
+
+        $cutruhv_thuongtru = cutruhv::where('id',$request->id_HV_DIACHI_TT)->update([
+            'DIA_CHI' => $request->HV_DIACHI_TT,
+            'id_XA' => $request->THUONGTRU_XA,
+        ]);
+
+
+
+      
+
+
 
         return Redirect::to('danhsachhocvien');
     }
