@@ -10,4 +10,9 @@ class doituong extends Model
     use HasFactory;
     protected $table = "doituong";
     public $timestamps = false;
+
+    // lấy nhiều
+    public function lay_hocvien(){
+        return $this->hasMany("App\\Models\\hocvien","id_DOITUONG","id");
+    }
 }

@@ -4,6 +4,14 @@ $(document).ready(function () {
 
         $.get("hocvien/" + id, function (data) {
             const data_HocVien = data;
+            const data_CuTruHV = data["cutru"]; // Địa chỉ cư trú
+
+            const data_thuongtru = data_CuTruHV[0]; // Địa chỉ thuong trú
+            const data_nguyenquan = data_CuTruHV[1]; // Địa chỉ nguyen quán
+
+            const data_Tinh = data["tinh"]; // Địa chỉ cư trú
+            const data_Huyen = data["huyen"]; // Địa chỉ cư trú
+            const data_Xa = data["xa"]; // Địa chỉ cư trú
 
             // Gán data vào modal qua id
             $("#id").val(data_HocVien["HV_MASO"]);
@@ -11,6 +19,7 @@ $(document).ready(function () {
             $("#HV_CMND").val(data_HocVien["HV_CMND"]);
             $("#HV_DANTOC").val(data_HocVien["HV_DANTOC"]);
             $("#HV_HOCVAN").val(data_HocVien["HV_HOCVAN"]);
+            $("#HV_DIACHI").val(data_nguyenquan["DIA_CHI"]);
             $("#HV_NGHENGHIEP").val("");
             $("#HV_NGAYSINH").val(data_HocVien["HV_NGAYSINH"]);
             // xử lý selected
@@ -29,19 +38,20 @@ $(document).ready(function () {
             });
 
             $("#nguyenquan_tinh option").each(function () {
-                if ($(this).val() == data_HocVien["TEN_TINH"]) {
+                if ($(this).val() == data_Tinh["TEN_TINH"]) {
+                    console.log(data_Tinh["TEN_TINH"]);
                     $(this).prop("selected", true);
                 }
             });
 
             $("#nguyenquan_huyen option").each(function () {
-                if ($(this).val() == data_HocVien["TEN_HUYEN"]) {
+                if ($(this).val() == data_Huyen["TEN_HUYEN"]) {
                     $(this).prop("selected", true);
                 }
             });
 
             $("#nguyenquan_xa option").each(function () {
-                if ($(this).val() == data_HocVien["TEN_XA"]) {
+                if ($(this).val() == data_Xa["TEN_XA"]) {
                     $(this).prop("selected", true);
                 }
             });

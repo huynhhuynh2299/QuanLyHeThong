@@ -10,4 +10,10 @@ class khoahoc extends Model
     use HasFactory;
     protected $table = "khoahoc";
     public $timestamps = false;
+
+
+    // lấy chuỗi
+    public function lay_lop(){
+        return $this->hasMany("App\\Models\\lop","id_KHOAHOC","id");
+    }
 }

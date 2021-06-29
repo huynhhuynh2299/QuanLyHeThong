@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class tinh extends Model
 {
     use HasFactory;
-    protected $table = "tinhthanhpho";
+    protected $table = "tinh";
     public $timestamps = false;
+
+
+    // lấy chuỗi 
+    public function lay_huyen()
+    {
+        return $this->hasMany("App\\Models\\huyen", "id_TINH", "id");
+    }
 }

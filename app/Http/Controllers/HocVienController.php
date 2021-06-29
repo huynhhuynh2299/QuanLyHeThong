@@ -25,7 +25,40 @@ class HocVienController extends Controller
     // truy vấn bằng id của bảng
     public function getByID(int $id)
     {
-        return hocvien::find($id);
+        $hocvien = hocvien::find($id);
+        $cutru = hocvien::find($id)->lay_cutruhv;
+        foreach ($cutru as $key) :
+            if ($key->THUONG_TRU == "YES") {
+
+                $dcThuongTru = $key;
+
+                $xa_tr = xa::find($key->id_XA);
+                $huyen_tr = xa::find($key->id_XA)->lay_huyen;
+                $tinh_tr = huyen::find($huyen_tr->id)->lay_tinh;
+
+                $dcThuongTru->XA = $xa_tr->TEN_XA;
+                $dcThuongTru->HUYEN = $huyen_tr->TEN_HUYEN;
+                $dcThuongTru->TINH = $tinh_tr->TEN_TINH;
+            }
+            if ($key->THUONG_TRU == "NO") {
+                $dcNguyenQuan = $key;
+
+                $xa_nq = xa::find($key->id_XA);
+                $huyen_nq = xa::find($key->id_XA)->lay_huyen;
+                $tinh_nq = huyen::find($huyen_nq->id)->lay_tinh;
+
+                $dcNguyenQuan->XA = $xa_nq->TEN_XA;
+                $dcNguyenQuan->HUYEN = $huyen_nq->TEN_HUYEN;
+                $dcNguyenQuan->TINH = $tinh_nq->TEN_TINH;
+            }
+        endforeach;
+
+        $response = $hocvien;
+
+        $response->THUONG_TRU = $dcThuongTru;
+        $response->NGUYEN_QUAN = $dcNguyenQuan;
+
+        return $response;
     }
 
     // truy vấn theo giá trị một cột bất kỳ
@@ -195,6 +228,7 @@ class HocVienController extends Controller
         $quanlyhocvien->delete();
         return view('Admin/QuanLyHocVien/DanhSach');
     }
+
 
 
     public function add(Request $request)

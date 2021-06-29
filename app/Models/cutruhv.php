@@ -16,27 +16,9 @@ class cutruhv extends Model
         return cutruhv::all();
     }
 
-    // truy vấn bằng id của bảng
-    public function getByID(int $id)
+    // lấy một
+    public function thuoc_xa()
     {
-        return cutruhv::all()->where("id", $id);
-    }
-
-    // truy vấn theo giá trị một cột bất kỳ
-    public function getByCol(String $col, String $value)
-    {
-        return cutruhv::all()->where($col, $value);
-    }
-
-    // truy vấn theo giá trị 2 cột bất kỳ
-    public function getBy2Col(
-        String $col1,
-        String $value1,
-        String $col2,
-        String $value2
-    ) {
-        return cutruhv::all()
-            ->where($col1, $value1)
-            ->where($col2, $value2);
+        return $this->belongsTo("App\\Models\\xa", "id_XA", "id");
     }
 }

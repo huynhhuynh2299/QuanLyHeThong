@@ -177,8 +177,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <span>Tỉnh/Thành Phố</span>
-                    <select class="form-control js_nguyenquan_tinh" id="nguyenquan_tinh" name="nguyenquan_tinh" placeholder="Tỉnh/Thành Phố">
-                      <option>Mời chọn tỉnh/thành phố</option>
+                    <select class="form-control js_nguyenquan_tinh" id="nguyenquan_tinh" name="nguyenquan_tinh" placeholder="Tỉnh/Thành Phố" disabled>
                       @foreach ($tinh_all as $tinh)
                       <option>{{ $tinh -> TEN_TINH }}</option>
                       @endforeach
@@ -186,8 +185,7 @@
                   </div>
                   <div class="form-group col-md-4">
                     <span>Quận/Huyện</span>
-                    <select class="form-control js_nguyenquan_huyen" id="nguyenquan_huyen" name="nguyenquan_huyen" placeholder="Quận/Huyên">
-                      <option>Mời chọn quận/huyện</option>
+                    <select class="form-control js_nguyenquan_huyen" id="nguyenquan_huyen" name="nguyenquan_huyen" placeholder="Quận/Huyên" disabled>
                       @foreach ($huyen_all as $huyen)
                       <option>{{ $huyen -> TEN_HUYEN }}</option>
                       @endforeach
@@ -195,13 +193,16 @@
                   </div>
                   <div class="form-group col-md-4">
                     <span>Phường/Xã</span>
-                    <select class="form-control" id="nguyenquan_xa" name="nguyenquan_xa" placeholder="Phường/Xã">
-                      <option>Mời chọn phường/xã</option>
+                    <select class="form-control" id="nguyenquan_xa" name="nguyenquan_xa" placeholder="Phường/Xã" disabled>
                       @foreach ($xa_all as $xa)
                       <option>{{ $xa -> TEN_XA }}</option>
                       @endforeach
                     </select>
                   </div>
+                </div>
+                <div class="form-group">
+                  <span>Địa chỉ</span>
+                  <input type="text" class="form-control" id="HV_DIACHI" name="HV_DIACHI" placeholder="Địa chỉ" disabled>
                 </div>
                 <label for="HV_THUONGTRU">Hộ khẩu thường trú</label>
                 <div class="form-row">
